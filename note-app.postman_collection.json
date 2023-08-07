@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "006262ff-d1c2-4194-bbf0-e886018fbcf5",
+		"name": "note-app",
+		"description": "## 1. Pass username and password to sign up endpoint and get jwt from response.\n\n## 2. Set JWT as Bearer Token to collection.\n## 3. Save changes and proceed with testing /notes endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "note",
+			"item": [
+				{
+					"name": "createNote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "note2",
+									"contentType": "",
+									"type": "default"
+								},
+								{
+									"key": "body",
+									"value": "note 2 body",
+									"contentType": "",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "invitation",
+									"contentType": "",
+									"type": "default"
+								},
+								{
+									"key": "receiver_ids[0]",
+									"value": "2ca92a60-aaa1-4f04-b418-ad5224245b3c",
+									"contentType": "",
+									"type": "default"
+								},
+								{
+									"key": "receiver_ids[1]",
+									"value": "3ca92a60-aaa1-4f04-b418-ad5224245b3c",
+									"type": "default"
+								},
+								{
+									"key": "mediaFiles",
+									"contentType": "",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "mediaFiles",
+									"contentType": "",
+									"type": "file",
+									"src": []
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes?limit=5&filters=congrat,invitation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "number of notes to fetch, default = 5"
+								},
+								{
+									"key": "filters",
+									"value": "congrat,invitation",
+									"description": "comma-sperated note types  congrat, invitation"
+								},
+								{
+									"key": "cursor",
+									"value": "eyJjcmVhdGVkX2F0IjoiMjAyMy0wOC0wNyAwNjoxMzo1NS40MTIxMzgiLCJkaXJlY3Rpb24iOiJwcmV2In0==",
+									"description": "base64 string containing note created_at and pagination direction     ",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotes Timeline",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes/timeline?limit=10&filters=congrat,invitation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes",
+								"timeline"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "number of notes to fetch, default = 5"
+								},
+								{
+									"key": "filters",
+									"value": "congrat,invitation",
+									"description": "comma-sperated note types  congrat, invitation"
+								},
+								{
+									"key": "cursor",
+									"value": "eyJjcmVhdGVkX2F0IjoiMjAyMy0wOC0wNiAwMTo0OToxOS41MjIxNjciLCJkaXJlY3Rpb24iOiJuZXh0In0=",
+									"description": "base64 string containing encoded note created_at and pagination direction  ( \ntaken from pagination object from response )",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteNote",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes/7ec4d019-e992-46df-a10d-bf527f605c5a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes",
+								"7ec4d019-e992-46df-a10d-bf527f605c5a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "signUp",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"user4\",\n    \"password\": \"user4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signIn",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"user1\",\n    \"password\": \"user1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxY2E5MmE2MC1hYWExLTRmMDQtYjQxOC1hZDUyMjQyNDViM2MiLCJpYXQiOjE2OTEzNzc5MzgsImV4cCI6MTY5MzEwNTkzOH0.KYIfMKigyJrbRdnaI6l7Z42CntqZR-ZeYNkIoooMt2c",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_ver",
+			"value": "1",
+			"type": "default"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api/v{{API_VER}}",
+			"type": "default"
+		}
+	]
+}

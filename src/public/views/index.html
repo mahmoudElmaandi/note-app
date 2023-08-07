@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note App Demo</title>
+</head>
+
+<body>
+    <form id="form" action="">
+        Username : <input type="text" name="username" autocomplete="off" />
+        <br>
+        Password : <input type="password" name="password" autocomplete="off" />
+        <button type="submit">Login</button>
+    </form>
+    <script src="/js/socket.io.min.js"></script>
+    <script>
+        function connect() {
+            var socket = io({
+                auth: {
+                    token: localStorage.getItem('jwt')
+                }
+            });
+
+            socket.on("connect_error", (err) => {
+                console.log(err.message);
+            });
+
+            socket.on('note', (msg, note) => {
+                console.log(`Server: ${msg} `, note);
+                if (note) alert(`You got 1 ${note.type} note, title: ${note.title} - body ${note.body}`);
+            });
+            socket.emit('note', "note from client");
+        };
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (e) => {
+            const formData = new FormData(form)
+            e.preventDefault();
+            const res = await fetch(`${window.location.origin}/users/signin`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: formData.get('username'),
+                    password: formData.get('password')
+                })
+            })
+            const result = await res.json();
+            if (result.error) {
+                alert(`error : ${data.error}`);
+                return
+            }
+            const { jwt, username, id } = result.data
+            localStorage.setItem('jwt', jwt);
+            form.remove();
+            const h3 = document.createElement('h3')
+            h3.innerText = `
+            jwt     :    ${jwt} \n 
+            username: ${username} \n
+            id      : ${id} \n`
+            document.body.append(h3)
+
+            connect();
+        });
+    </script>
+</body>
+
+</html>

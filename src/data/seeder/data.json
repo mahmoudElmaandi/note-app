@@ -1,0 +1,12 @@
+{
+    "noteTypes": {
+        "congrat": "1ca92a60-c6a1-4f04-b418-ad5224245b3c",
+        "invitation": "2ca92a60-c6a1-4f04-b418-ad5224245b3c"
+    },
+    "users": {
+        "user1": "1ca92a60-aaa1-4f04-b418-ad5224245b3c",
+        "user2": "2ca92a60-aaa1-4f04-b418-ad5224245b3c",
+        "user3": "3ca92a60-aaa1-4f04-b418-ad5224245b3c",
+        "user4": "4ca92a60-aaa1-4f04-b418-ad5224245b3c"
+    }
+}
